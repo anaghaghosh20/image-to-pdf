@@ -1,91 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Image to PDF Converter - Free & Easy Online Tool</title>
+  <title>Image to PDF Converter - Free & Easy Online Tool</title>
   <meta charset="UTF-8" />
-  <meta name="viewport"
-<meta name="google-site-verification" content="googlea50767664abd3759.html" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="google-site-verification" content="googlea50767664abd3759.html" />
   <meta name="description" content="Convert image files (JPG, PNG) to PDF for free. No login or watermark. 100% browser-based image to PDF tool." />
   <meta name="keywords" content="image to pdf, convert image to pdf, jpg to pdf, free online converter, png to pdf" />
-  <title>Image to PDF Converter – Free Online JPG to PDF Tool</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: 'Segoe UI', sans-serif;
-      max-width: 750px;
-      margin: auto;
-      padding: 30px;
-      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background: #f4f8fb;
       color: #333;
     }
-    h1, h2 { color: #007bff; }
+
+    header {
+      background: linear-gradient(135deg, #007bff, #0056b3);
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+      animation: fadeInDown 1s ease;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    main {
+      max-width: 800px;
+      margin: auto;
+      padding: 30px 20px;
+      animation: fadeIn 1.5s ease;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      margin-top: -30px;
+      z-index: 1;
+      position: relative;
+    }
+
+    h2 {
+      color: #007bff;
+    }
+
     button {
-      padding: 10px 20px;
-      font-size: 1rem;
-      cursor: pointer;
-      background-color: #007bff;
+      background: #007bff;
       color: white;
       border: none;
+      padding: 12px 24px;
+      font-size: 1rem;
       border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
       margin-top: 10px;
     }
+
+    button:hover {
+      background: #0056b3;
+    }
+
     input[type="file"] {
       margin-top: 20px;
     }
+
     #download {
       display: none;
       margin-top: 20px;
+      color: #007bff;
+      text-decoration: underline;
+      font-weight: bold;
     }
+
+    ul, ol {
+      margin-left: 20px;
+    }
+
+    #adsense {
+      background: #e9ecef;
+      padding: 10px;
+      border-radius: 6px;
+      text-align: center;
+      margin: 20px 0;
+      color: #555;
+    }
+
     footer {
-      margin-top: 40px;
-      font-size: 0.85rem;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
       color: #888;
+      margin-top: 40px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+
+      main {
+        margin: 10px;
+        padding: 20px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <h1>Free Image to PDF Converter</h1>
-  <p>Convert JPG, PNG, and other image files to PDF instantly with our free online tool. No signup, no watermark, no limits.</p>
+  <header>
+    <h1>Free Image to PDF Converter</h1>
+    <p>Convert JPG, PNG, and other images to PDF instantly. No signup. No watermark.</p>
+  </header>
 
-  <h2>How to Use:</h2>
-  <ol>
-    <li>Click “Choose Files” and select one or more image files (JPG, PNG, etc.)</li>
-    <li>Click the “Convert to PDF” button</li>
-    <li>Click “Download PDF” to save your converted file</li>
-  </ol>
+  <main>
+    <h2>How to Use:</h2>
+    <ol>
+      <li>Select one or more image files (JPG, PNG, etc.)</li>
+      <li>Click “Convert to PDF”</li>
+      <li>Click “Download PDF” to save the file</li>
+    </ol>
 
-  <input type="file" id="imageInput" accept="image/*" multiple />
-  <br />
-  <button onclick="convertToPDF()">Convert to PDF</button>
-  <br />
-  <a id="download" download="converted.pdf">Download PDF</a>
+    <input type="file" id="imageInput" accept="image/*" multiple />
+    <br />
+    <button onclick="convertToPDF()">Convert to PDF</button>
+    <br />
+    <a id="download" download="converted.pdf">Download PDF</a>
 
-  <h2>Why Use This Tool?</h2>
-  <ul>
-    <li>100% free and fast</li>
-    <li>No login or account required</li>
-    <li>Works directly in your browser</li>
-    <li>Mobile-friendly design</li>
-  </ul>
+    <h2>Why Use This Tool?</h2>
+    <ul>
+      <li>100% free and super fast</li>
+      <li>No login or account needed</li>
+      <li>Works directly in your browser</li>
+      <li>Optimized for mobile devices</li>
+    </ul>
 
-  <h2>Ad Section</h2>
-  <p>This is where your AdSense ad code will appear after approval.</p>
-  <!-- Replace below with your AdSense code after approval -->
-  <div id="adsense">
-    <!-- Example Placeholder -->
-    <p>[AdSpace – Paste AdSense Code Here]</p>
-  </div>
+    <h2>Ad Section</h2>
+    <div id="adsense">
+      <p>[AdSpace – Paste AdSense Code Here]</p>
+    </div>
+  </main>
 
   <footer>
-    &copy; 2025 ImageToPDFFree.com – Your privacy is respected. No files are uploaded to any server.
+    &copy; 2025 ImageToPDFFree.com – No files are uploaded. Your privacy is respected.
   </footer>
 
   <script>
     async function convertToPDF() {
       const { jsPDF } = window.jspdf;
       const input = document.getElementById('imageInput');
-      if (!input.files.length) return alert('Please select at least one image.');
+      if (!input.files.length) {
+        alert('Please select at least one image.');
+        return;
+      }
+
       const pdf = new jsPDF();
 
       for (let i = 0; i < input.files.length; i++) {
