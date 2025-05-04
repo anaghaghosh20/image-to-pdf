@@ -3,24 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Free and easy Image to PDF Converter. Convert JPG, PNG, or other images into a single downloadable PDF file. No signup or watermark!" />
-  <meta name="keywords" content="image to pdf, convert image to pdf, jpg to pdf, png to pdf, free pdf converter, image converter online" />
-  <title>Free Image to PDF Converter | No Signup</title>
+  <meta name="description" content="Convert image files (JPG, PNG) to PDF for free. No login or watermark. 100% browser-based image to PDF tool." />
+  <meta name="keywords" content="image to pdf, convert image to pdf, jpg to pdf, free online converter, png to pdf" />
+  <title>Image to PDF Converter – Free Online JPG to PDF Tool</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 40px 20px;
-      text-align: center;
+      max-width: 750px;
+      margin: auto;
+      padding: 30px;
+      line-height: 1.6;
       color: #333;
     }
-    h1 { font-size: 2rem; margin-bottom: 10px; }
-    p { font-size: 1rem; margin-bottom: 30px; }
-    input[type="file"] {
-      margin: 20px 0;
-    }
+    h1, h2 { color: #007bff; }
     button {
       padding: 10px 20px;
       font-size: 1rem;
@@ -29,58 +25,74 @@
       color: white;
       border: none;
       border-radius: 5px;
+      margin-top: 10px;
+    }
+    input[type="file"] {
+      margin-top: 20px;
     }
     #download {
       display: none;
       margin-top: 20px;
     }
-    #adsense {
-      margin: 30px auto;
-      width: 300px;
-      height: 250px;
-    }
     footer {
       margin-top: 40px;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: #888;
     }
   </style>
 </head>
 <body>
 
-  <h1>Image to PDF Converter</h1>
-  <p>Convert your JPG or PNG images into a single PDF file – 100% free, no signup, and no watermark.</p>
+  <h1>Free Image to PDF Converter</h1>
+  <p>Convert JPG, PNG, and other image files to PDF instantly with our free online tool. No signup, no watermark, no limits.</p>
 
-  <input type="file" id="imageInput" accept="image/*" multiple>
+  <h2>How to Use:</h2>
+  <ol>
+    <li>Click “Choose Files” and select one or more image files (JPG, PNG, etc.)</li>
+    <li>Click the “Convert to PDF” button</li>
+    <li>Click “Download PDF” to save your converted file</li>
+  </ol>
+
+  <input type="file" id="imageInput" accept="image/*" multiple />
   <br />
   <button onclick="convertToPDF()">Convert to PDF</button>
   <br />
   <a id="download" download="converted.pdf">Download PDF</a>
 
-  <!-- Replace below with your AdSense ad code -->
+  <h2>Why Use This Tool?</h2>
+  <ul>
+    <li>100% free and fast</li>
+    <li>No login or account required</li>
+    <li>Works directly in your browser</li>
+    <li>Mobile-friendly design</li>
+  </ul>
+
+  <h2>Ad Section</h2>
+  <p>This is where your AdSense ad code will appear after approval.</p>
+  <!-- Replace below with your AdSense code after approval -->
   <div id="adsense">
-    <!-- Example placeholder ad -->
-    <p>Ad Space</p>
+    <!-- Example Placeholder -->
+    <p>[AdSpace – Paste AdSense Code Here]</p>
   </div>
 
   <footer>
-    &copy; 2025 ImageToPDFFree.com | Built with love
+    &copy; 2025 ImageToPDFFree.com – Your privacy is respected. No files are uploaded to any server.
   </footer>
 
   <script>
     async function convertToPDF() {
       const { jsPDF } = window.jspdf;
       const input = document.getElementById('imageInput');
-      if (!input.files.length) return alert('Please upload at least one image.');
+      if (!input.files.length) return alert('Please select at least one image.');
       const pdf = new jsPDF();
 
       for (let i = 0; i < input.files.length; i++) {
         const img = await readImage(input.files[i]);
-        const imgProps = pdf.getImageProperties(img);
-        const pdfW = pdf.internal.pageSize.getWidth();
-        const pdfH = (imgProps.height * pdfW) / imgProps.width;
+        const props = pdf.getImageProperties(img);
+        const width = pdf.internal.pageSize.getWidth();
+        const height = (props.height * width) / props.width;
         if (i > 0) pdf.addPage();
-        pdf.addImage(img, 'JPEG', 0, 0, pdfW, pdfH);
+        pdf.addImage(img, 'JPEG', 0, 0, width, height);
       }
 
       const blob = pdf.output('blob');
