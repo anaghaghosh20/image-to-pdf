@@ -10,82 +10,118 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-light: #f4f4f4;
-      --text-light: #111;
-      --bg-dark: #0f2027;
-      --text-dark: #fff;
-      --accent: #00e0ff;
-      --primary: linear-gradient(135deg, #ff416c, #ff4b2b);
+      --bg-color: #0f2027;
+      --text-color: #fff;
     }body {
   font-family: 'Inter', sans-serif;
+  background: var(--bg-color);
+  color: var(--text-color);
   margin: 0;
   padding: 0;
-  background: var(--bg-dark);
-  color: var(--text-dark);
+  overflow-x: hidden;
   transition: background 0.3s, color 0.3s;
 }
 
-body.light {
-  background: var(--bg-light);
-  color: var(--text-light);
+.light-mode {
+  --bg-color: #ffffff;
+  --text-color: #000000;
 }
 
 .container {
   max-width: 800px;
   margin: auto;
   padding: 40px 20px;
+  animation: fadeIn 1s ease-in-out;
   text-align: center;
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 h1, h2 {
-  color: var(--accent);
-}
-
-input[type="file"] {
-  display: none;
-}
-
-#drop-area {
-  border: 2px dashed #888;
-  border-radius: 10px;
-  padding: 20px;
-  margin: 20px auto;
-  background: rgba(255,255,255,0.1);
-}
-
-.preview {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.preview img {
-  height: 100px;
-  border-radius: 8px;
-  object-fit: cover;
+  color: #00e0ff;
+  text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
 }
 
 button, .download-link, .amazon-link {
-  background: var(--primary);
+  background: linear-gradient(135deg, #ff416c, #ff4b2b);
   color: white;
   border: none;
   padding: 12px 24px;
   font-size: 1rem;
   border-radius: 50px;
   cursor: pointer;
+  transition: transform 0.2s ease, background 0.3s;
   text-decoration: none;
-  margin: 10px;
+  display: inline-block;
+  margin-top: 15px;
 }
 
-.controls {
-  margin-top: 20px;
+button:hover, .download-link:hover, .amazon-link:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #ff4b2b, #ff416c);
 }
 
-.controls label {
+input[type="file"] {
+  margin: 20px 0;
+  padding: 10px;
+  border-radius: 10px;
+  background: #fff;
+  color: #000;
+}
+
+.preview {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.preview img {
+  width: 100px;
+  height: auto;
+  border-radius: 10px;
+}
+
+.ad-section {
+  background: #1b1e2f;
+  border-radius: 15px;
+  padding: 20px;
+  margin-top: 40px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  animation: fadeIn 2s ease-in-out;
+}
+
+.ad-section h2 {
+  color: #ffd700;
+}
+
+.amazon-link {
+  background: linear-gradient(to right, #ff9900, #ff3300);
+  margin-bottom: 10px;
   display: block;
-  margin-bottom: 5px;
+  text-align: center;
+}
+
+footer {
+  margin-top: 40px;
+  font-size: 0.9rem;
+  color: #ccc;
+  text-align: center;
+}
+
+marquee {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #000;
+  color: #00e0ff;
+  padding: 10px;
+  font-weight: bold;
+  z-index: 1000;
 }
 
   </style>
@@ -93,85 +129,98 @@ button, .download-link, .amazon-link {
 <body>
   <div class="container">
     <h1>Free Image to PDF Converter</h1>
-    <label class="switch">
-      <input type="checkbox" id="themeToggle" /> Toggle Dark Mode
-    </label><div id="drop-area">
-  <p>Drag & drop images here or <button onclick="document.getElementById('fileInput').click()">Choose Files</button></p>
-  <input type="file" id="fileInput" accept="image/*" multiple />
-</div>
+    <p>Convert JPG, PNG, and other image files to PDF instantly with our free online tool. No signup, no watermark, no limits.</p><label><input type="checkbox" id="darkToggle" onchange="toggleDarkMode()"> Toggle Dark Mode</label>
 
+<h2>How to Use:</h2>
+<ol>
+  <li>Choose or drag & drop image files (JPG, PNG, etc.)</li>
+  <li>Select PDF layout options</li>
+  <li>Click “Convert to PDF”</li>
+  <li>Download the result</li>
+</ol>
+
+<input type="file" id="imageInput" accept="image/*" multiple />
+<div id="dropZone" style="border: 2px dashed #00e0ff; padding: 20px; margin-top: 10px;">Drag & Drop Images Here</div>
 <div class="preview" id="preview"></div>
 
-<div class="controls">
-  <label>Layout: 
-    <select id="layout">
-      <option value="portrait">Portrait</option>
-      <option value="landscape">Landscape</option>
-    </select>
-  </label>
-  <label>Margin (mm):
-    <input type="number" id="margin" value="10" min="0" max="50" />
-  </label>
+<label>Orientation:
+  <select id="orientation">
+    <option value="p">Portrait</option>
+    <option value="l">Landscape</option>
+  </select>
+</label>
+<br>
+<label>Margin (mm): <input type="number" id="margin" value="10" min="0" /></label>
+
+<br />
+<button onclick="convertToPDF()">Convert to PDF</button>
+<br />
+<a id="download" class="download-link" download="converted.pdf">Download PDF</a>
+
+<div class="ad-section">
+  <h2>Recommended Tools on Amazon</h2>
+  <p>Check out these handy items that can make your life easier:</p>
+  <a class="amazon-link" href="https://amzn.to/4iRozL4" target="_blank">Gadget #1 – View on Amazon</a>
+  <a class="amazon-link" href="https://amzn.to/4d27UDh" target="_blank">Gadget #2 – View on Amazon</a>
 </div>
 
-<button onclick="convertToPDF()">Convert to PDF</button>
-<a id="download" class="download-link" style="display:none" download="converted.pdf">Download PDF</a>
+<footer>
+  &copy; 2025 ImageToPDFFree.com – Your privacy is respected. No files are uploaded to any server.
+</footer>
 
-  </div>  <script>
-    const dropArea = document.getElementById('drop-area');
+  </div><marquee>Your privacy is protected. No data or files are saved or uploaded to our servers.</marquee>
+
+  <script>
+    const dropZone = document.getElementById('dropZone');
+    const imageInput = document.getElementById('imageInput');
     const preview = document.getElementById('preview');
-    const fileInput = document.getElementById('fileInput');
-    const themeToggle = document.getElementById('themeToggle');
-    let files = [];
 
-    themeToggle.addEventListener('change', () => {
-      document.body.classList.toggle('light');
-    });
-
-    dropArea.addEventListener('dragover', e => {
+    dropZone.addEventListener('dragover', (e) => {
       e.preventDefault();
-      dropArea.style.borderColor = 'lime';
+      dropZone.style.background = '#203a43';
     });
 
-    dropArea.addEventListener('dragleave', () => {
-      dropArea.style.borderColor = '#888';
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.style.background = 'transparent';
     });
 
-    dropArea.addEventListener('drop', e => {
+    dropZone.addEventListener('drop', (e) => {
       e.preventDefault();
-      dropArea.style.borderColor = '#888';
-      handleFiles(e.dataTransfer.files);
+      dropZone.style.background = 'transparent';
+      imageInput.files = e.dataTransfer.files;
+      showPreview();
     });
 
-    fileInput.addEventListener('change', e => handleFiles(e.target.files));
+    imageInput.addEventListener('change', showPreview);
 
-    function handleFiles(selected) {
-      for (let file of selected) {
-        files.push(file);
+    function showPreview() {
+      preview.innerHTML = '';
+      for (const file of imageInput.files) {
         const reader = new FileReader();
         reader.onload = e => {
           const img = document.createElement('img');
           img.src = e.target.result;
           preview.appendChild(img);
-        };
+        }
         reader.readAsDataURL(file);
       }
     }
 
     async function convertToPDF() {
       const { jsPDF } = window.jspdf;
-      const layout = document.getElementById('layout').value;
+      const orientation = document.getElementById('orientation').value;
       const margin = parseInt(document.getElementById('margin').value);
-      const pdf = new jsPDF({ orientation: layout });
 
-      for (let i = 0; i < files.length; i++) {
-        const imgData = await readImage(files[i]);
-        const props = pdf.getImageProperties(imgData);
-        const pageWidth = pdf.internal.pageSize.getWidth() - 2 * margin;
-        const pageHeight = (props.height * pageWidth) / props.width;
+      if (!imageInput.files.length) return alert('Please select at least one image.');
+      const pdf = new jsPDF({ orientation });
 
+      for (let i = 0; i < imageInput.files.length; i++) {
+        const img = await readImage(imageInput.files[i]);
+        const props = pdf.getImageProperties(img);
+        const width = pdf.internal.pageSize.getWidth() - 2 * margin;
+        const height = (props.height * width) / props.width;
         if (i > 0) pdf.addPage();
-        pdf.addImage(imgData, 'JPEG', margin, margin, pageWidth, pageHeight);
+        pdf.addImage(img, 'JPEG', margin, margin, width, height);
       }
 
       const blob = pdf.output('blob');
@@ -182,11 +231,15 @@ button, .download-link, .amazon-link {
     }
 
     function readImage(file) {
-      return new Promise(res => {
+      return new Promise((res) => {
         const reader = new FileReader();
         reader.onload = () => res(reader.result);
         reader.readAsDataURL(file);
       });
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle('light-mode');
     }
   </script></body>
 </html>
