@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <title>Image to PDF Converter - Free & Easy Online Tool</title>
   <meta charset="UTF-8" />
@@ -9,218 +10,209 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg-color: #0f2027;
-      --text-color: #fff;
-    }body {
-  font-family: 'Inter', sans-serif;
-  background: var(--bg-color);
-  color: var(--text-color);
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  transition: background 0.3s, color 0.3s;
-}
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      transition: background 0.3s, color 0.3s;
+    }
 
-.light-mode {
-  --bg-color: #ffffff;
-  --text-color: #000000;
-}
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 40px 20px;
+      animation: fadeIn 1s ease-in-out;
+    }
 
-.container {
-  max-width: 800px;
-  margin: auto;
-  padding: 40px 20px;
-  animation: fadeIn 1s ease-in-out;
-  text-align: center;
-}
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+    h1, h2 {
+      color: #00e0ff;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+    }
 
-h1, h2 {
-  color: #00e0ff;
-  text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
-}
+    button, .download-link, .amazon-link {
+      background: linear-gradient(135deg, #ff416c, #ff4b2b);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.3s;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 15px;
+    }
 
-button, .download-link, .amazon-link {
-  background: linear-gradient(135deg, #ff416c, #ff4b2b);
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  font-size: 1rem;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: transform 0.2s ease, background 0.3s;
-  text-decoration: none;
-  display: inline-block;
-  margin-top: 15px;
-}
+    button:hover, .download-link:hover, .amazon-link:hover {
+      transform: scale(1.05);
+      background: linear-gradient(135deg, #ff4b2b, #ff416c);
+    }
 
-button:hover, .download-link:hover, .amazon-link:hover {
-  transform: scale(1.05);
-  background: linear-gradient(135deg, #ff4b2b, #ff416c);
-}
+    input[type="file"] {
+      margin: 20px 0;
+      padding: 10px;
+      border-radius: 10px;
+      background: #fff;
+      color: #000;
+    }
 
-input[type="file"] {
-  margin: 20px 0;
-  padding: 10px;
-  border-radius: 10px;
-  background: #fff;
-  color: #000;
-}
+    ol, ul {
+      margin-left: 20px;
+    }
 
-.preview {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 10px;
-}
+    footer {
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: #ccc;
+      text-align: center;
+    }
 
-.preview img {
-  width: 100px;
-  height: auto;
-  border-radius: 10px;
-}
+    .ad-section {
+      background: #1b1e2f;
+      border-radius: 15px;
+      padding: 20px;
+      margin-top: 40px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      animation: fadeIn 2s ease-in-out;
+    }
 
-.ad-section {
-  background: #1b1e2f;
-  border-radius: 15px;
-  padding: 20px;
-  margin-top: 40px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.3);
-  animation: fadeIn 2s ease-in-out;
-}
+    .ad-section h2 {
+      color: #ffd700;
+    }
 
-.ad-section h2 {
-  color: #ffd700;
-}
+    .amazon-link {
+      background: linear-gradient(to right, #ff9900, #ff3300);
+      margin-bottom: 10px;
+      display: block;
+      text-align: center;
+    }
 
-.amazon-link {
-  background: linear-gradient(to right, #ff9900, #ff3300);
-  margin-bottom: 10px;
-  display: block;
-  text-align: center;
-}
+    .dark-mode {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #fff;
+      padding: 10px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 999;
+    }
 
-footer {
-  margin-top: 40px;
-  font-size: 0.9rem;
-  color: #ccc;
-  text-align: center;
-}
+    .dark-mode-text {
+      display: inline-block;
+      margin-right: 10px;
+    }
 
-marquee {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background: #000;
-  color: #00e0ff;
-  padding: 10px;
-  font-weight: bold;
-  z-index: 1000;
-}
+    .dark-mode-active {
+      background: #444;
+      color: white;
+    }
 
+    .dark-mode-active .dark-mode-text {
+      color: #00e0ff;
+    }
+
+    .live-ticker {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: #333;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      animation: ticker 15s linear infinite;
+    }
+
+    @keyframes ticker {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Free Image to PDF Converter</h1>
-    <p>Convert JPG, PNG, and other image files to PDF instantly with our free online tool. No signup, no watermark, no limits.</p><label><input type="checkbox" id="darkToggle" onchange="toggleDarkMode()"> Toggle Dark Mode</label>
+    <p>Convert JPG, PNG, and other image files to PDF instantly with our free online tool. No signup, no watermark, no limits.</p>
 
-<h2>How to Use:</h2>
-<ol>
-  <li>Choose or drag & drop image files (JPG, PNG, etc.)</li>
-  <li>Select PDF layout options</li>
-  <li>Click “Convert to PDF”</li>
-  <li>Download the result</li>
-</ol>
+    <h2>How to Use:</h2>
+    <ol>
+      <li>Click “Choose Files” and select one or more image files (JPG, PNG, etc.)</li>
+      <li>Click the “Convert to PDF” button</li>
+      <li>Click “Download PDF” to save your converted file</li>
+    </ol>
 
-<input type="file" id="imageInput" accept="image/*" multiple />
-<div id="dropZone" style="border: 2px dashed #00e0ff; padding: 20px; margin-top: 10px;">Drag & Drop Images Here</div>
-<div class="preview" id="preview"></div>
+    <input type="file" id="imageInput" accept="image/*" multiple />
+    <br />
+    <button onclick="convertToPDF()">Convert to PDF</button>
+    <br />
+    <a id="download" class="download-link" download="converted.pdf">Download PDF</a>
 
-<label>Orientation:
-  <select id="orientation">
-    <option value="p">Portrait</option>
-    <option value="l">Landscape</option>
-  </select>
-</label>
-<br>
-<label>Margin (mm): <input type="number" id="margin" value="10" min="0" /></label>
+    <h2>Why Use This Tool?</h2>
+    <ul>
+      <li>100% free and fast</li>
+      <li>No login or account required</li>
+      <li>Works directly in your browser</li>
+      <li>Mobile-friendly design</li>
+    </ul>
 
-<br />
-<button onclick="convertToPDF()">Convert to PDF</button>
-<br />
-<a id="download" class="download-link" download="converted.pdf">Download PDF</a>
+    <div class="ad-section">
+      <h2>Recommended Tools on Amazon</h2>
+      <p>Check out these handy items that can make your life easier:</p>
+      <a class="amazon-link" href="https://amzn.to/4iRozL4" target="_blank">Gadget #1 – View on Amazon</a>
+      <a class="amazon-link" href="https://amzn.to/4d27UDh" target="_blank">Gadget #2 – View on Amazon</a>
+    </div>
 
-<div class="ad-section">
-  <h2>Recommended Tools on Amazon</h2>
-  <p>Check out these handy items that can make your life easier:</p>
-  <a class="amazon-link" href="https://amzn.to/4iRozL4" target="_blank">Gadget #1 – View on Amazon</a>
-  <a class="amazon-link" href="https://amzn.to/4d27UDh" target="_blank">Gadget #2 – View on Amazon</a>
-</div>
+    <footer>
+      &copy; 2025 ImageToPDFFree.com – Your privacy is respected. No files are uploaded to any server.
+    </footer>
+  </div>
 
-<footer>
-  &copy; 2025 ImageToPDFFree.com – Your privacy is respected. No files are uploaded to any server.
-</footer>
+  <!-- Dark Mode Toggle -->
+  <div class="dark-mode" onclick="toggleDarkMode()">
+    <span class="dark-mode-text">Dark Mode</span> 
+    <input type="checkbox" id="darkModeToggle" />
+  </div>
 
-  </div><marquee>Your privacy is protected. No data or files are saved or uploaded to our servers.</marquee>
+  <div class="live-ticker">
+    <marquee behavior="scroll" direction="left">
+      We do not store or upload any data to our servers. All files are processed locally on your device.
+    </marquee>
+  </div>
 
   <script>
-    const dropZone = document.getElementById('dropZone');
-    const imageInput = document.getElementById('imageInput');
-    const preview = document.getElementById('preview');
+    const toggle = document.getElementById('darkModeToggle');
+    const body = document.body;
 
-    dropZone.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      dropZone.style.background = '#203a43';
-    });
-
-    dropZone.addEventListener('dragleave', () => {
-      dropZone.style.background = 'transparent';
-    });
-
-    dropZone.addEventListener('drop', (e) => {
-      e.preventDefault();
-      dropZone.style.background = 'transparent';
-      imageInput.files = e.dataTransfer.files;
-      showPreview();
-    });
-
-    imageInput.addEventListener('change', showPreview);
-
-    function showPreview() {
-      preview.innerHTML = '';
-      for (const file of imageInput.files) {
-        const reader = new FileReader();
-        reader.onload = e => {
-          const img = document.createElement('img');
-          img.src = e.target.result;
-          preview.appendChild(img);
-        }
-        reader.readAsDataURL(file);
+    function toggleDarkMode() {
+      if (toggle.checked) {
+        body.classList.add('dark-mode-active');
+      } else {
+        body.classList.remove('dark-mode-active');
       }
     }
 
     async function convertToPDF() {
       const { jsPDF } = window.jspdf;
-      const orientation = document.getElementById('orientation').value;
-      const margin = parseInt(document.getElementById('margin').value);
+      const input = document.getElementById('imageInput');
+      if (!input.files.length) return alert('Please select at least one image.');
 
-      if (!imageInput.files.length) return alert('Please select at least one image.');
-      const pdf = new jsPDF({ orientation });
-
-      for (let i = 0; i < imageInput.files.length; i++) {
-        const img = await readImage(imageInput.files[i]);
+      const pdf = new jsPDF();
+      for (let i = 0; i < input.files.length; i++) {
+        const img = await readImage(input.files[i]);
         const props = pdf.getImageProperties(img);
-        const width = pdf.internal.pageSize.getWidth() - 2 * margin;
+        const width = pdf.internal.pageSize.getWidth();
         const height = (props.height * width) / props.width;
         if (i > 0) pdf.addPage();
-        pdf.addImage(img, 'JPEG', margin, margin, width, height);
+        pdf.addImage(img, 'JPEG', 0, 0, width, height);
       }
 
       const blob = pdf.output('blob');
@@ -237,9 +229,6 @@ marquee {
         reader.readAsDataURL(file);
       });
     }
-
-    function toggleDarkMode() {
-      document.body.classList.toggle('light-mode');
-    }
-  </script></body>
+  </script>
+</body>
 </html>
