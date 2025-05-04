@@ -100,33 +100,6 @@
       text-align: center;
     }
 
-    /* Dark Mode Styles */
-    .dark-mode {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background-color: #fff;
-      padding: 10px 20px;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      z-index: 999;
-    }
-
-    .dark-mode-text {
-      display: inline-block;
-      margin-right: 10px;
-    }
-
-    .dark-mode-active {
-      background: #444;
-      color: white;
-    }
-
-    .dark-mode-active .dark-mode-text {
-      color: #00e0ff;
-    }
-
     /* Live Ticker */
     .live-ticker {
       position: fixed;
@@ -185,12 +158,6 @@
     </footer>
   </div>
 
-  <!-- Dark Mode Toggle -->
-  <div class="dark-mode" onclick="toggleDarkMode()">
-    <span class="dark-mode-text">Dark Mode</span> 
-    <input type="checkbox" id="darkModeToggle" />
-  </div>
-
   <div class="live-ticker">
     <marquee behavior="scroll" direction="left">
       We do not store or upload any data to our servers. All files are processed locally on your device.
@@ -198,17 +165,6 @@
   </div>
 
   <script>
-    const toggle = document.getElementById('darkModeToggle');
-    const body = document.body;
-
-    function toggleDarkMode() {
-      if (toggle.checked) {
-        body.classList.add('dark-mode-active');
-      } else {
-        body.classList.remove('dark-mode-active');
-      }
-    }
-
     async function convertToPDF() {
       const { jsPDF } = window.jspdf;
       const input = document.getElementById('imageInput');
